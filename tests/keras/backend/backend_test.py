@@ -64,12 +64,14 @@ def parse_shape_or_val(shape_or_val, flags="normal"):
         if isinstance(shape_or_val, np.ndarray):
             return shape_or_val.shape, shape_or_val
         else:
-            return shape_or_val, np.random.random(shape_or_val).astype(np.float32) - 0.5
+            return shape_or_val, \
+                   np.random.random(shape_or_val).astype(np.float32) - 0.5
     elif flags == 'where':
         if isinstance(shape_or_val, np.ndarray):
             return shape_or_val.shape, shape_or_val
         else:
-            return shape_or_val, np.random.randint(0, 2, shape_or_val).astype(np.bool)
+            return shape_or_val, \
+                   np.random.randint(0, 2, shape_or_val).astype(np.bool)
 
     
 def assert_list_pairwise(z_list,
@@ -171,7 +173,6 @@ def check_three_tensor_operation(function_name,
                                  z_shape_or_val,
                                  backend_list,
                                  **kwargs):
-
     x_shape, x_val = parse_shape_or_val(x_shape_or_val, "where")
     y_shape, y_val = parse_shape_or_val(y_shape_or_val)
     z_shape, z_val = parse_shape_or_val(z_shape_or_val)
@@ -187,8 +188,8 @@ def check_three_tensor_operation(function_name,
 
     assert_list_pairwise(z_list)
     assert_list_keras_shape(t_list, z_list) 
-    
-    
+
+
 def check_composed_tensor_operations(first_function_name,
                                      first_function_args,
                                      second_function_name,
